@@ -1,0 +1,42 @@
+package org.weather.model.data
+
+import sys.process._
+import java.net.URL
+import java.io.File
+import scala.io.Source
+
+/**
+ * @author anandraj
+ * @written 22 June, 2016
+ * @description Object to handle data needs of the application
+ * 	1. Read data mapping file to get mapping between City -> (IATACode, BOM Code)
+ * 	2. Download required historical weather data from Bureau of Meteorology(BOM) Australia.
+ *
+ */
+
+object GetData {
+
+  val bomBaseUrl = "http://www.bom.gov.au/climate/dwo/"
+  val dataFolder = "src/main/resources/"
+
+  case class codes(IATACode: String, bomCode: String)
+
+  //Get the Cities for which weather forecasting is done with mapping to IATA Codes and BOM File codes for the city.
+  //Mapping is stored in the dataFolder defined above in file mapping.txt
+  def getMappingData(): Map[String, codes] = {
+    val mapping = for (
+      line <- Source.fromFile(dataFolder + "mapping.txt").getLines.map(x => x.split("\\|"))
+    ) yield (line(0), codes(line(1), line(2)))
+    mapping.toMap
+  }
+
+  //Function to download weather data for given cities from bom Website for a given 
+  //city and date(year & month)
+  //eg:url for Darwin, June 2016 data - http://www.bom.gov.au/climate/dwo/201606/text/IDCJDW8014.201606.csv 
+  def fileDownloader(city: String, date: String, mapping: Map[String, codes]) {
+    val bomFileCode = mapping(city).bomCode
+    val url = bomBaseUrl + date + "/text/" + bomFileCode + "." + date + ".csv"
+    new URL(url) #> new File(dataFolder + bomFileCode) !!
+  }
+
+}

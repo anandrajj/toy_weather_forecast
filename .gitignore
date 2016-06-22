@@ -1,0 +1,13 @@
+*.txt
+/local
+/classes
+/target
+/project/project
+/project/target
+/bin/
+.cache-main
+.classpath
+.project
+/.settings/
+.worksheet
+
