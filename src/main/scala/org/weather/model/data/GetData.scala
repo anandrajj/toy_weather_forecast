@@ -14,29 +14,53 @@ import scala.io.Source
  *
  */
 
-object GetData {
+object GetData  {
 
-  val bomBaseUrl = "http://www.bom.gov.au/climate/dwo/"
-  val dataFolder = "src/main/resources/"
-
-  case class codes(IATACode: String, bomCode: String)
-
-  //Get the Cities for which weather forecasting is done with mapping to IATA Codes and BOM File codes for the city.
-  //Mapping is stored in the dataFolder defined above in file mapping.txt
-  def getMappingData(): Map[String, codes] = {
+  /* 
+   * Get the Cities for which weather forecasting is done with mapping to IATA Codes and BOM File codes for the city.
+   * Mapping is stored in the dataFolder defined above in file mapping.txt
+   */
+  def getMappingData(): Map[String, CommonData.codes] = {
     val mapping = for (
-      line <- Source.fromFile(dataFolder + "mapping.txt").getLines.map(x => x.split("\\|"))
-    ) yield (line(0), codes(line(1), line(2)))
+      line <- Source.fromFile(CommonData.mappingFile).getLines.map(x => x.split(CommonData.defaultFieldSep))
+    ) yield (line(0), CommonData.codes(line(1), line(2)))
     mapping.toMap
   }
 
-  //Function to download weather data for given cities from bom Website for a given 
-  //city and date(year & month)
-  //eg:url for Darwin, June 2016 data - http://www.bom.gov.au/climate/dwo/201606/text/IDCJDW8014.201606.csv 
-  def fileDownloader(city: String, date: String, mapping: Map[String, codes]) {
-    val bomFileCode = mapping(city).bomCode
-    val url = bomBaseUrl + date + "/text/" + bomFileCode + "." + date + ".csv"
-    new URL(url) #> new File(dataFolder + bomFileCode) !!
+  /*
+   * Function to download weather data for given cities from bom Website for a given 
+   * city and date(year & month)
+   * eg:url for Darwin, June 2016 data - http://www.bom.gov.au/climate/dwo/201606/text/IDCJDW8014.201606.csv 
+   * 
+   * */
+
+  def fileDownloader(date: Int, mapping: CommonData.codes) {
+    val bomFileCode = mapping.bomCode
+    val IATACode = mapping.IATACode
+    val url = CommonData.bomBaseUrl + date + "/text/" + bomFileCode + "." + date + ".csv"
+    try {
+      new URL(url) #> new File(CommonData.dataFolder + bomFileCode) !!
+    } catch {
+      case e: Exception => throw new Exception(s"Error when donloading from $url")
+    } 
   }
+  
+  /*
+   * Function to get max & min date range between which the observation data is available for download 
+   * to this application. If the input date for which the forecast must be predicted.
+   */
+  
+  def getMaxMinDate() = {
+    //Read only first line from the date range file. Then split the files by default field Separator.   
+    val dates = Source.fromFile(CommonData.maxMinDateFile).getLines().next.split(CommonData.defaultFieldSep)
+     
+     require(dates.size == 2 &&             //Only a tuple of size 2 is supplied
+         (dates(0)+dates(1)).forall(_.isDigit) && //Check all the digits is number.
+         dates(0).toInt < dates(1).toInt) //Check if the left date is less than right
+     
+     CommonData.dateRange(dates(0).toInt, dates(1).toInt)
+     
+  }
+ 
 
 }

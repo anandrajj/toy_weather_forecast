@@ -9,4 +9,4 @@
 .project
 /.settings/
 .worksheet
-
+/src/main/resources/I*
