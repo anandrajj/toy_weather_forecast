@@ -4,22 +4,15 @@ version := "1.0"
 
 scalaVersion := "2.10.4"
 val sparkVersion = "1.6.1"
+assemblyJarName in assembly := "toy-weather-forecast.jar"
 
 
-libraryDependencies ++= Seq("org.apache.spark" % "spark-core_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
-                            "org.apache.spark" % "spark-graphx_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
-                            "org.apache.spark" % "spark-sql_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
+libraryDependencies ++= Seq(
+                            "org.apache.spark" % "spark-core_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
                             "org.apache.spark" % "spark-mllib_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
                             "com.cloudera.sparkts" % "sparkts" % "0.1.0",
-                            "com.databricks" % "spark-csv_2.10" % "1.4.0" % "compile" withSources() withJavadoc(),
-                            ("org.apache.spark" % "spark-hive_2.10" % sparkVersion % "compile" withSources() withJavadoc())
-                            .exclude("com.twitter", "parquet-hadoop-bundle")
-                            .exclude("org.datanucleus", "datanucleus-core")
-                            .exclude("org.datanucleus", "datanucleus-api-jdo")
-                            .exclude("org.datanucleus", "datanucleus-rdbms"),
                               "org.scalatest" % "scalatest_2.10" % "2.2.6" % "test" withSources() withJavadoc(),
                               "joda-time" % "joda-time" % "2.9.2" withSources() withJavadoc(),
-                              "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
                               "org.json4s" %% "json4s-native" % "3.4.0"
                               )
 /*

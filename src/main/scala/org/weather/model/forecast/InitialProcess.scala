@@ -68,12 +68,12 @@ object InitialProcess {
       "Year or Month is not numeric or month is not in valid range") //Check month is between 1 & 12
 
     val date = "%04d".format(year.toInt) + "%02d".format(month.toInt)
-    
+
     val dateRange = GetData.getMaxMinDate(argsMap.getOrElse("dateRange", CommonData.defaultDateRange))
 
     //Check if the date is between date ranges specified
     require(date.toInt >= dateRange.min && date.toInt <= dateRange.max,
-      s"Input date is not between min ($dateRange.min) & max($dateRange.max) range") 
+      s"Input date is not between min ($dateRange.min) & max($dateRange.max) range")
 
     date.toInt
   }
