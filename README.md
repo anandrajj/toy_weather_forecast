@@ -4,7 +4,6 @@ toy_weather_forecast
 Test message
 
 Backgroud
----------
 
 	The application is designed to predict weather of various important cities around Australia. As the weather observations are over a period of time, time-series analysis using [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)  is used to forecast weather parameters. 
 
