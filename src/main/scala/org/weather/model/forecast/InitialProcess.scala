@@ -12,6 +12,9 @@ import org.weather.model.data.CommonData
 
 object InitialProcess {
 
+  /*
+   * Regex pattern for the key of each paramter value.
+   */
   private val argNamePattern = "(--)([a-zA-Z0-9_]*)".r
 
   /*
@@ -25,7 +28,7 @@ object InitialProcess {
   }
 
   /*
-   * Function to parse and calls validate parms.
+   * Function to parse the parms & validate parms.
    * Converts args of fomrat (--datSource local) to Map("dataSource" -> "local")
    * 
    */
@@ -58,17 +61,19 @@ object InitialProcess {
    * 3. Validate if the date is between min & max range. 
    * 
    */
-  private def validateFormatDate(year: String, month: String): Int = {
+  private def validateFormatDate(year: String, month: String)(implicit argsMap: Map[String, String]): Int = {
 
     require((year + month).forall(_.isDigit) && //Check all are digits in date
       (1 to 12).contains(month.toInt),
       "Year or Month is not numeric or month is not in valid range") //Check month is between 1 & 12
 
     val date = "%04d".format(year.toInt) + "%02d".format(month.toInt)
-    val dateRange = GetData.getMaxMinDate
+    
+    val dateRange = GetData.getMaxMinDate(argsMap.getOrElse("dateRange", CommonData.defaultDateRange))
 
+    //Check if the date is between date ranges specified
     require(date.toInt >= dateRange.min && date.toInt <= dateRange.max,
-      s"Input date is not between min ($dateRange.min) & max($dateRange.max) range") //Check if the date is between date ranges
+      s"Input date is not between min ($dateRange.min) & max($dateRange.max) range") 
 
     date.toInt
   }
@@ -89,7 +94,8 @@ object InitialProcess {
   }
 
   /*
-   * If data source is bom, then download the data for give date & cities.  
+   * If data source is bom, then download the data for give date & cities. 
+   * else Do Nothing 
    * 
    */
 

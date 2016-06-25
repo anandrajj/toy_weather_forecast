@@ -10,7 +10,6 @@ libraryDependencies ++= Seq("org.apache.spark" % "spark-core_2.10" % sparkVersio
                             "org.apache.spark" % "spark-graphx_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
                             "org.apache.spark" % "spark-sql_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
                             "org.apache.spark" % "spark-mllib_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
-                            "org.scalanlp" % "breeze_2.10" % "0.12",
                             "com.cloudera.sparkts" % "sparkts" % "0.1.0",
                             "com.databricks" % "spark-csv_2.10" % "1.4.0" % "compile" withSources() withJavadoc(),
                             ("org.apache.spark" % "spark-hive_2.10" % sparkVersion % "compile" withSources() withJavadoc())
@@ -20,7 +19,8 @@ libraryDependencies ++= Seq("org.apache.spark" % "spark-core_2.10" % sparkVersio
                             .exclude("org.datanucleus", "datanucleus-rdbms"),
                               "org.scalatest" % "scalatest_2.10" % "2.2.6" % "test" withSources() withJavadoc(),
                               "joda-time" % "joda-time" % "2.9.2" withSources() withJavadoc(),
-                              "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
+                              "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
+                              "org.json4s" %% "json4s-native" % "3.4.0"
                               )
 /*
 if a project uses a particular version of scala, but a transitive dependency uses one of the scala-lang optionals
@@ -65,7 +65,8 @@ assemblyMergeStrategy in assembly := {
 
 assemblyExcludedJars in assembly := {
   val cp = (fullClasspath in assembly).value
-  val excludesJar = Set("commons-beanutils-1.7.0.jar", "commons-beanutils-core-1.8.0.jar")
+  val excludesJar = Set("commons-beanutils-1.7.0.jar", "commons-beanutils-core-1.8.0.jar",
+                            "stax-api-1.0.1.jar")
   cp filter { jar => excludesJar.contains(jar.data.getName)}
 }
 
