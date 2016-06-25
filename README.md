@@ -5,11 +5,11 @@ Test message
 
 Backgroud
 
-	The application is designed to predict weather of various important cities around Australia. As the weather observations are over a period of time, time-series analysis using [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)  is used to forecast weather parameters. 
+The application is designed to predict weather of various important cities around Australia. As the weather observations are over a period of time, time-series analysis using [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)  is used to forecast weather parameters. 
 
-	Data required for the prediction is sourced from [BOM (Bureau of Metorology, Austraila)](http://www.bom.gov.au/climate/dwo/).
+Data required for the prediction is sourced from [BOM (Bureau of Metorology, Austraila)](http://www.bom.gov.au/climate/dwo/).
 
-	Forecasts are performed for - CANBERRA, SYDNEY, WOLLONGONG, MELBOURNE, BRISBANE, CAIRNS, GOLD COAST, ADELAIDE, PERTH, HOBART, DARWIN.
+Forecasts are performed for - CANBERRA, SYDNEY, WOLLONGONG, MELBOURNE, BRISBANE, CAIRNS, GOLD COAST, ADELAIDE, PERTH, HOBART, DARWIN.
 
 Building:
 ---------
