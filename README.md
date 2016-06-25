@@ -1,8 +1,10 @@
 toy_weather_forecast
-====================
+============
 
-Backgroud:
-----------
+Test message
+
+Backgroud
+---------
 
 	The application is designed to predict weather of various important cities around Australia. As the weather observations are over a period of time, time-series analysis using [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)  is used to forecast weather parameters. 
 
@@ -30,7 +32,7 @@ Building:
 	if dataSource is bom, the data is downloaded from bom before forecasting else it expects the data to be in local files in current working dierctory.
 
 	To run the project with fat jar in current path:
-	
+
 	`java -jar toy-weather-forecast.jar --dataSource bom --year 2016 --month 11`
 
 
