@@ -39,10 +39,20 @@ Project organization
 
 Project is split into two layers by means of packages. All the data handling like downloading, accessing api, parsing of values is organised under the `org.weather.model.data` and all processing logic required for forecasting is grouped under `org.weather.model.forecast`. Below diagram shows the Objects & functions under the packages.
 
-		------------------------------------
-		|	org.weather.model.data         |
-		|								   |	
-		------------------------------------ 	        
+		------------------------------------			---------------------------------
+		|	org.weather.model.data         |			|  org.weather.model.forecast   |
+		|								   |			|                               |
+		------------------------------------ 	        ---------------------------------
+		     |
+		     |     *********************** 
+		     |---->|                     |
+		     |     ***********************
+		     |
+		     |
+		     |
+		     |
+		     |
+
 
 
 
