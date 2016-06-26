@@ -21,6 +21,12 @@ Building
 
  	sbt assembly
 
+### Testing:
+    
+All test cases can be executed with the below command.
+
+    sbt test
+
 ### Running:
 
 Command line parms must be specifed in pairs in the format `--name value`. Internally application validates this format & converts to a Map(name -> vlaue)
@@ -29,9 +35,9 @@ Application expects, 4 mandatory command line parms viz. dataSource, year, month
 
 if dataSource is bom, the data is downloaded from bom before forecasting else it expects the data to be in local files in current working dierctory.
 
-To run the project with fat jar in current path:
+To run the project with fat jar in /path/to/jar folder:
 
-	java -jar toy-weather-forecast.jar --dataSource bom --year 2016 --month 11
+	java -jar /path/to/jar/toy-weather-forecast.jar --dataSource bom --year 2016 --month 11
 
 ### Dependecies:
 
