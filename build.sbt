@@ -8,7 +8,6 @@ assemblyJarName in assembly := "toy-weather-forecast.jar"
 
 
 libraryDependencies ++= Seq(
-                            "org.apache.spark" % "spark-core_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
                             "org.apache.spark" % "spark-mllib_2.10" % sparkVersion % "compile" withSources() withJavadoc(),
                             "com.cloudera.sparkts" % "sparkts" % "0.1.0",
                               "org.scalatest" % "scalatest_2.10" % "2.2.6" % "test" withSources() withJavadoc(),
