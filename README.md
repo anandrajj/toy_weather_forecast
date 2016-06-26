@@ -41,7 +41,7 @@ To run the project with fat jar in /path/to/jar folder:
 
 ### Dependencies:
 
-For smooth compile & run. Esure sbt 0.13.9 and scala version above 2.10 is installed.
+For smooth compile & run. Esure sbt 0.13.9, scala version above 2.10 is installed and java 1.8.
 
 1. sparkts (For ARIMA time series analysis.)
 2. spark-mllib (sparkts uses spark-mllib)
