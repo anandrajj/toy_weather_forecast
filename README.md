@@ -33,6 +33,12 @@ To run the project with fat jar in current path:
 
 	java -jar toy-weather-forecast.jar --dataSource bom --year 2016 --month 11
 
+###### Dependecies:
+
+1. sparkts (For ARIMA timeseries analysis.)
+2. spark-code & spark-mllib
+3. joda-time
+4. json4s (Extracting Geo-cordinates from Google Rest API response json) 
 
 Project organization
 --------------------
