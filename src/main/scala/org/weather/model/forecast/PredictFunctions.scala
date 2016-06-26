@@ -48,7 +48,7 @@ object PredictFunctions {
    */
   def predictOutlook(predictedRH: Int, predicteCloudCover: Int, predictedSunShine: Double, predictedAverageTemp: Double) = {
     //Rain. When highly humid, high cloud cover and less sunshine.
-    if (predictedRH > 80D && predicteCloudCover > 6 && predictedSunShine < 3) "Rain" 
+    if (predictedRH > 80 && predicteCloudCover > 6 && predictedSunShine < 3) "Rain" 
     else if (predictedSunShine > 5) "Sunny" //When sunshine is for more than 5 hours then, Sunny.
     else if (predicteCloudCover > 6) "Cloudy" //When high cloud cover then cloudy.
     else if (predictedAverageTemp < 15) "Cold" //If temperature is below 15. Then Cold.

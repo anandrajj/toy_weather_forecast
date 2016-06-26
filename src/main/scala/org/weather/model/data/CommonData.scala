@@ -40,7 +40,7 @@ object CommonData {
   //Ideally these values have to be in config db. To keep the execution simple
   //exercise they are hard-coded here.
 
-  val mapArray = Array(
+  val cities = Array(
     "CANBERRA|CBR|IDCJDW2801",
     "SYDNEY|SYD|IDCJDW2124",
     "WOLLONGONG|WOL|IDCJDW2146",

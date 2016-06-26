@@ -7,6 +7,7 @@ import scala.io.Source
 import org.json4s._
 import org.json4s.native.JsonMethods._
 import com.typesafe.config.ConfigFactory
+import java.io.FileNotFoundException
 
 /**
  * @author anandraj
@@ -25,7 +26,7 @@ object GetData {
    */
   def getMappingData(): Map[String, CommonData.codes] = {
     val mapping = for (
-      line <- CommonData.mapArray.map(x => x.split(CommonData.defaultFieldSep))
+      line <- CommonData.cities.map(x => x.split(CommonData.defaultFieldSep))
     ) yield (line(0), CommonData.codes(line(1), line(2)))
     mapping.toMap
   }
@@ -59,7 +60,7 @@ object GetData {
 
     require(dates.size == 2 && //Only a tuple of size 2 is supplied
       (dates(0) + dates(1)).forall(_.isDigit) && //Check all the digits is number.
-      dates(0).toInt < dates(1).toInt) //Check if the left date is less than right
+      dates(0).toInt < dates(1).toInt, "date range is not valid") //Check if the left date is less than right
 
     CommonData.dateRange(dates(0).toInt, dates(1).toInt)
 
