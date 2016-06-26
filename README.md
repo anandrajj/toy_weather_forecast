@@ -1,25 +1,25 @@
 toy_weather_forecast
 ============
 
-Backgroud
+Background
 ---------
 
-The application is designed to predict weather of various important cities around Australia. As the weather observations are over a period of time, time-series analysis using [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)  is used to forecast weather parameters. 
+The application is designed to predict the weather of various important cities around Australia. As the weather observations are over a period of time, time-series analysis using [ARIMA](https://en.wikipedia.org/wiki/Autoregressive_integrated_moving_average)  is used to forecast weather parameters. 
 
-Data required for the prediction is sourced from [BOM (Bureau of Metorology, Austraila)](http://www.bom.gov.au/climate/dwo/).
+Data required for the prediction is sourced from [BOM (Bureau of Meteorology, Austraila)](http://www.bom.gov.au/climate/dwo/).
 
 Forecasts are performed for - CANBERRA, SYDNEY, WOLLONGONG, MELBOURNE, BRISBANE, CAIRNS, GOLD COAST, ADELAIDE, PERTH, HOBART, DARWIN.
 
 Building
 --------
-	
+    
 ### Building & Test:
  
 ### Building:
 
  Project uses [SBT](http://www.scala-sbt.org/) to build & test the application. To compile, test and build jars: 
 
- 	sbt assembly
+     sbt assembly
 
 ### Testing:
     
@@ -29,27 +29,27 @@ All test cases can be executed with the below command.
 
 ### Running:
 
-Command line parms must be specifed in pairs in the format `--name value`. Internally application validates this format & converts to a Map(name -> vlaue)
+Command line parms must be specified in pairs in the format `--name value`. Internally application validates this format & converts to a Map(name -> value)
 
-Application expects, 4 mandatory command line parms viz. dataSource, year, month, outFile. Optional parameter dateRange allows to override the default date range of (201506 to 201606). This range is choosen is default based on data availablity in BOM.
+The application expects, 4 mandatory command line parms viz. dataSource, year, month, outFile. Optional parameter dateRange allows overriding the default date range of (201506 to 201606). This range is chosen is default based on data availability in BOM.
 
-if dataSource is bom, the data is downloaded from bom before forecasting else it expects the data to be in local files in current working dierctory.
+if dataSource is bom, the data is downloaded from bom before forecasting else it expects the data to be in local files in current working directory.
 
 To run the project with fat jar in /path/to/jar folder:
 
-	java -jar /path/to/jar/toy-weather-forecast.jar --dataSource bom --year 2016 --month 11
+    java -jar /path/to/jar/toy-weather-forecast.jar --dataSource bom --year 2016 --month 11
 
-### Dependecies:
+### Dependencies:
 
-1. sparkts (For ARIMA timeseries analysis.)
+1. sparkts (For ARIMA time series analysis.)
 2. spark-code & spark-mllib
 3. joda-time
-4. json4s (Extracting Geo-cordinates from Google Rest API response json) 
+4. json4s (Extracting Geo-coordinates from Google Rest API response json) 
 
 Project organization
 --------------------
 
-Project is split into two layers by means of packages. All the data handling like downloading, accessing api, parsing of values is organised under the `org.weather.model.data` and all processing logic required for forecasting is grouped under `org.weather.model.forecast`. Below diagram shows the Objects & functions under the packages.
+The project is split into two layers by means of packages. All the data handling like downloading, accessing API, parsing of values is organised under the `org.weather.model.data` and all processing logic required for forecasting is grouped under `org.weather.model.forecast`. Below diagram shows the Objects & functions under the packages.
 
 								  ------------------------------
 								  |    toy_weather_forecast    |
@@ -78,7 +78,7 @@ Project is split into two layers by means of packages. All the data handling lik
 Execution Flow
 --------------
 
-PredictWeather is the entry point into application which controls the order of execution various steps required to complete forecasting. Flow of steps is represented as diagram below.
+PredictWeather is the entry point into the application which controls the order of execution various steps required to complete forecasting. Flow of steps is represented in the diagram below.
 
 	***********************************************
 	* 	Parsing Arguments & Accuring Data         *										 
@@ -114,12 +114,12 @@ PredictWeather is the entry point into application which controls the order of e
         ***************************************
 
         ------------------------------------------
-        |   Read Obser vation for the city       | <-----------------------  
+        |   Read Observation for the city        | <-----------------------  
         ------------------------------------------                        |
         			  |													  |
         			  V                                                   |
         ------------------------------------------						  |	
-        | Caluclate the t+1 day for which the    |                        |
+        | Calculate the t+1 day for which the    |                        |
         | forecast is being performed		     |                        |
         ------------------------------------------						  |	
         			  |												      |
