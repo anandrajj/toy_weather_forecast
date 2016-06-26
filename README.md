@@ -39,22 +39,43 @@ Project organization
 
 Project is split into two layers by means of packages. All the data handling like downloading, accessing api, parsing of values is organised under the `org.weather.model.data` and all processing logic required for forecasting is grouped under `org.weather.model.forecast`. Below diagram shows the Objects & functions under the packages.
 
+								  ------------------------------
+								  |    toy_weather_forecast    |
+							      ------------------------------
+                                      |                   |
+                                      |                   |
+                                      V                   V
 		------------------------------------			---------------------------------
 		|	org.weather.model.data         |			|  org.weather.model.forecast   |
 		|								   |			|                               |
 		------------------------------------ 	        ---------------------------------
-		     |
-		     |     *********************** 
-		     |---->|                     |
-		     |     ***********************
-		     |
-		     |
-		     |
-		     |
-		     |
+		     |												|
+		     |     ************************					|     ***********************
+		     |---->| CommonData           |                 |---->|InitialProcess       |
+		     |     ************************                 |     *********************** 
+		     |                                              |
+		     |     ************************                 |     *********************** 
+		     |---->|FileOperations        |                 |---->|PredictFunctions     | 
+		     |     ************************                 |     ***********************
+		     |                                              |
+		     |     ************************                 |     *********************** 
+		     |---->|GetData               |                 |---->|PredictWeather       |
+		     	   ************************                       ***********************
 
 
+Execution Flow
+--------------
+
+PredictWeather is the entry point into application which controls the order of execution various steps required to complete forecasting. Flow of steps is represented as diagram below.
 
 
-	
-
+		------------------------------------	
+        |Parse & Validate Command line args|
+        ------------------------------------
+        			  |
+        			  |
+        			  V
+        ------------------------------------
+        |Get the cities & mapping to IATA  | 
+        |code & BoM file name for each city| 
+        ------------------------------------
