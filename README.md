@@ -68,14 +68,78 @@ Execution Flow
 
 PredictWeather is the entry point into application which controls the order of execution various steps required to complete forecasting. Flow of steps is represented as diagram below.
 
-
+	***********************************************
+	* 	Parsing Arguments & Accuring Data         *										 
+	***********************************************
 		------------------------------------	
         |Parse & Validate Command line args|
         ------------------------------------
         			  |
-        			  |
         			  V
         ------------------------------------
         |Get the cities & mapping to IATA  | 
-        |code & BoM file name for each city| 
+        |code and BoM file name for each   | 
+        |city                              |  
         ------------------------------------
+                      |
+                      V
+        ------------------------------------
+        |Validate & Get the date for which |
+        |forecast is to be performed. Also |
+        |validate.                         |
+        ------------------------------------
+                      |
+                      V 
+        -------------------------------------
+        |Download BoM data if the dataSource|
+        |is 'bom' for all the cities & the  |
+        |input date                         |
+        -------------------------------------
+        			  |
+        			  V
+        ***************************************
+        * Perform Predictions for all Cities  *
+        ***************************************
+
+        ------------------------------------------
+        |   Read Obser vation for the city       | <-----------------------  
+        ------------------------------------------                        |
+        			  |													  |
+        			  V                                                   |
+        ------------------------------------------						  |	
+        | Caluclate the t+1 day for which the    |                        |
+        | forecast is being performed		     |                        |
+        ------------------------------------------						  |	
+        			  |												      |
+        			  V                                                   |
+        ------------------------------------------					      |
+        |Predict Average Temperature, Pressures  |                        |
+        |and Relative humidity using ARIMA time- |                        |
+        |series analysis.						 |                        |
+        ------------------------------------------                        |
+                      |                                                   |
+        			  V                                       ------------------------------------
+        ------------------------------------------            | Repeat For each City in scope of |
+        |Predict cloud cover & Sunshine hours 	 |            | forecast                         |
+        |for outlook forecasting				 |            ------------------------------------
+        ------------------------------------------                        |
+        	          | 												  |
+        			  V           										  |
+        ------------------------------------------                        |
+        |Uinsg Google API get Geo coordinates &  |                        |
+        |elevation							     |                        |
+        ------------------------------------------                        |
+        			  |             								      |
+        			  V	      											  |
+        ------------------------------------------                        |
+        |String IATA Code, Geo coordinates, date |				          |
+        |forecasting for(utc), outlook, predicted| ------------------------
+        |average temperature, pressure and 		 |	
+        |relative humidity. 					 |
+        ------------------------------------------
+                      |
+                      V
+        ******************************************
+        * Write results into the output file     *  
+        ******************************************
+
