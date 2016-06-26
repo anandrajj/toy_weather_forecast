@@ -11,3 +11,4 @@
 .worksheet
 I*
 *.txt
+.cache-tests
